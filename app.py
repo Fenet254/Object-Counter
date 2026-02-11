@@ -44,15 +44,22 @@ def main():
     st.title("Live Object Similarity Classification & Counting System")
     st.write("Upload images of objects to classify and count them based on visual similarity.")
 
+    # Camera input
+    camera_image = st.camera_input("Take a picture")
+
     # File uploader for multiple images
     uploaded_files = st.file_uploader("Choose images", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
+    # Combine images from camera and uploads
+    images = []
+    if camera_image:
+        images.append(Image.open(camera_image).convert('RGB'))
     if uploaded_files:
-        images = []
+        images.extend([Image.open(file).convert('RGB') for file in uploaded_files])
+
+    if images:
         features = []
-        for file in uploaded_files:
-            image = Image.open(file).convert('RGB')
-            images.append(image)
+        for image in images:
             feat = extract_features(image)
             features.append(feat)
 
