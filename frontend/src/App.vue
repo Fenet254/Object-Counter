@@ -43,6 +43,11 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
+import ControlPanel from './components/ControlPanel.vue'
+import VideoFeed from './components/VideoFeed.vue'
+import StatsPanel from './components/StatsPanel.vue'
 
 // State
 const mode = ref('webcam')
@@ -105,8 +110,7 @@ const handleModeChange = () => {
   uploadedVideoUrl.value = ''
 }
 
-const handleFileUpload = (event) => {
-  const file = event.target.files[0]
+const handleFileUpload = (file) => {
   if (file) {
     processFile(file)
   }
